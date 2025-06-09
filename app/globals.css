@@ -95,21 +95,7 @@
   font-family: var(--font-mono), ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
-/* Custom caret with glow */
-.custom-caret {
-  position: relative;
-}
-
-.custom-caret::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 1.2em;
-  background: #fbbf24;
-  animation: caret-pulse 1.5s ease-in-out infinite;
-  box-shadow: 0 0 8px #fbbf24;
-}
-
+/* Enhanced Caret Animations */
 @keyframes caret-pulse {
   0%,
   100% {
@@ -122,7 +108,43 @@
   }
 }
 
-/* Keystroke ripple effect */
+@keyframes caret-fire {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(1deg);
+    filter: hue-rotate(10deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(-1deg);
+    filter: hue-rotate(-10deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(1deg);
+    filter: hue-rotate(5deg);
+  }
+}
+
+.caret-normal {
+  animation: caret-pulse 1.5s ease-in-out infinite;
+}
+
+.caret-fire {
+  animation: caret-fire 0.3s ease-in-out infinite;
+}
+
+.caret-fast {
+  animation: caret-pulse 0.8s ease-in-out infinite;
+}
+
+.caret-slow {
+  animation: caret-pulse 2s ease-in-out infinite;
+}
+
+/* Typing Feedback Animations */
 @keyframes keystroke-ripple {
   0% {
     transform: scale(1);
@@ -134,33 +156,19 @@
   }
 }
 
-.keystroke-ripple {
-  animation: keystroke-ripple 0.3s ease-out;
-}
-
-/* Word mistake bounce */
-@keyframes mistake-bounce {
-  0%,
-  20%,
-  50%,
-  80%,
+@keyframes correct-flash {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(34, 197, 94, 0.3);
+  }
   100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-8px);
-  }
-  60% {
-    transform: translateY(-4px);
+    background-color: rgba(34, 197, 94, 0.1);
   }
 }
 
-.mistake-bounce {
-  animation: mistake-bounce 0.6s ease-in-out;
-}
-
-/* Gentle shake for mistake overlay */
-@keyframes gentle-shake {
+@keyframes incorrect-shake {
   0%,
   100% {
     transform: translateX(0);
@@ -173,8 +181,63 @@
   }
 }
 
-.gentle-shake {
-  animation: gentle-shake 0.3s ease-in-out;
+.keystroke-ripple {
+  animation: keystroke-ripple 0.3s ease-out;
+}
+
+.correct-flash {
+  animation: correct-flash 0.2s ease-out;
+}
+
+.incorrect-shake {
+  animation: incorrect-shake 0.3s ease-in-out;
+}
+
+/* Word wrapping and text display */
+.typing-text {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.8;
+}
+
+.typing-text .word {
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+.typing-text .char {
+  transition: all 0.1s ease;
+  border-radius: 2px;
+  padding: 1px 2px;
+}
+
+.typing-text .char.correct {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: rgb(226, 232, 240);
+}
+
+.typing-text .char.incorrect {
+  background-color: rgba(239, 68, 68, 0.3);
+  color: rgb(248, 113, 113);
+}
+
+.typing-text .char.current {
+  background-color: rgb(251, 191, 36);
+  color: rgb(15, 23, 42);
+  animation: caret-pulse 1s ease-in-out infinite;
+}
+
+.typing-text .char.pending {
+  color: rgb(100, 116, 139);
+}
+
+/* Progress bar enhancements */
+.wpm-progress-bar {
+  background: linear-gradient(90deg, #10b981 0%, #fbbf24 50%, #ef4444 100%);
+  height: 4px;
+  border-radius: 2px;
+  transition: width 0.3s ease-out;
 }
 
 /* Custom scrollbar */
@@ -207,10 +270,94 @@ button:focus {
   @apply bg-amber-400 text-slate-900;
 }
 
-/* Line limit bar */
-.wpm-progress-bar {
-  background: linear-gradient(90deg, #10b981 0%, #fbbf24 50%, #ef4444 100%);
-  height: 4px;
-  border-radius: 2px;
-  transition: width 0.3s ease-out;
+/* Backdrop blur support */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+}
+
+.backdrop-blur-lg {
+  backdrop-filter: blur(16px);
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Particle animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px);
+  }
+  50% {
+    transform: translateY(-5px) translateX(-5px);
+  }
+  75% {
+    transform: translateY(-15px) translateX(3px);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Achievement animations */
+@keyframes achievement-unlock {
+  0% {
+    transform: scale(0.8) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.achievement-unlock {
+  animation: achievement-unlock 0.6s ease-out;
+}
+
+/* Responsive text sizing */
+@media (max-width: 768px) {
+  .typing-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 640px) {
+  .typing-text {
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
 }
