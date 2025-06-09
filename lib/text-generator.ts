@@ -1,5 +1,14 @@
+// Define types for the text database
+type Difficulty = "easy" | "medium" | "hard" | "expert";
+type Mode = "words" | "code" | "email" | "punctuation" | "numbers";
+type ModeData = { [key in Difficulty]: string[] };
+type LanguageData = Partial<{ [key in Mode]: ModeData }>;
+type TextDatabase = {
+  [language: string]: LanguageData;
+};
+
 // Add language support to the text database
-const textDatabase = {
+const textDatabase: TextDatabase = {
   // English texts remain the same
   en: {
     words: {
@@ -184,6 +193,8 @@ const textDatabase = {
         "L'intelligence artificielle et l'apprentissage automatique transforment notre façon d'interagir avec la technologie.",
         "Le changement climatique affecte les modèles météorologiques mondiaux, les courants océaniques et la biodiversité dans le monde entier.",
       ],
+      hard: [],
+      expert: [],
       // Additional French content would be added here
     },
   },
@@ -197,32 +208,10 @@ const textDatabase = {
         "Übung macht den Meister, wenn man sich auf seine Ziele konzentriert.",
         "Jeder Experte war einmal ein Anfänger, der nie aufgegeben hat.",
       ],
-      // Additional German content would be added here
+      medium: [],
+      hard: [],
+      expert: [],
+// Additional German content would be added here
     },
   },
-
-  // Add placeholder content for other languages
-  ru: { words: { easy: ["Быстрая коричневая лиса прыгает через ленивую собаку."] } },
-  zh: { words: { easy: ["快速的棕色狐狸跳过懒狗。"] } },
-  ja: { words: { easy: ["素早い茶色のキツネは怠け者の犬を飛び越えます。"] } },
-}
-
-export function generateText(mode: string, difficulty: string, language = "en"): string {
-  // Default to English if the selected language is not available
-  const langData = textDatabase[language as keyof typeof textDatabase] || textDatabase.en
-
-  const modeKey = mode as keyof typeof textDatabase.en
-  const difficultyKey = difficulty as keyof typeof textDatabase.en.words
-
-  // If the specific mode or difficulty doesn't exist in the selected language, fall back to English
-  if (!langData[modeKey] || !langData[modeKey][difficultyKey]) {
-    const fallbackText = textDatabase.en[modeKey]?.[difficultyKey]
-    if (fallbackText) {
-      return fallbackText[Math.floor(Math.random() * fallbackText.length)]
-    }
-    return "The quick brown fox jumps over the lazy dog."
-  }
-
-  const texts = langData[modeKey][difficultyKey]
-  return texts[Math.floor(Math.random() * texts.length)]
-}
+};
