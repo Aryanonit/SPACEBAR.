@@ -26,18 +26,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} dark`} style={{ colorScheme: "dark" }}>
       <head>
         <link
           href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@400,500,600,700&f[]=satoshi@400,500,600,700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="font-clash antialiased">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          {children}
-        </ThemeProvider>
-        <SpeedInsights />
+      <body>
+        {children}
       </body>
     </html>
   )
