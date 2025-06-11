@@ -12,8 +12,7 @@ import DailyChallenge from "@/components/daily-challenge"
 //import CustomWordPackBuilder from "@/components/custom-word-pack-builder"
 import ParticleBackground from "@/components/particle-background"
 import { generateText } from "@/lib/text-generator"
-import ThemeToggle from "@/components/theme-toggle"
-import { BarChart3, Package, Settings, Calendar, Plus } from "lucide-react"
+import { Home as HomeIcon, BarChart3, Package, Settings, Calendar, Plus } from "lucide-react"
 import CustomWordPackBuilder from "@/components/ui/custom-word-pack-builder"
 
 export default function Home() {
@@ -21,6 +20,8 @@ export default function Home() {
   const [showHandGuide, setShowHandGuide] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
   const [currentView, setCurrentView] = useState<"home" | "wordpacks" | "stats" | "challenge" | "custom">("home")
+  const [userInput, setUserInput] = useState("")
+  const [isFinished, setIsFinished] = useState(false)
 
   useEffect(() => {
     setIsLoaded(true)
@@ -106,7 +107,7 @@ export default function Home() {
               className={`hover:text-amber-400 transition-colors ${currentView === "home" ? "text-amber-400" : ""}`}
               title="Home"
             >
-              <Settings className="w-5 h-5" />
+              <HomeIcon className="w-5 h-5" />
             </motion.button>
             <motion.button
               onClick={() => setCurrentView("wordpacks")}
@@ -144,7 +145,6 @@ export default function Home() {
             >
               <BarChart3 className="w-5 h-5" />
             </motion.button>
-            <ThemeToggle />
           </nav>
         </motion.header>
 
@@ -276,7 +276,7 @@ export default function Home() {
                 exit={{ opacity: 0, x: -100 }}
                 transition={{ duration: 0.5 }}
               >
-                <EnhancedTypingInterface />
+                <EnhancedTypingInterface onBackToHome={() => setCurrentView("home")} />
               </motion.div>
             )}
           </AnimatePresence>

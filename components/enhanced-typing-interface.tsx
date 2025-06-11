@@ -4,11 +4,11 @@ import { useState, useEffect, useRef, useCallback } from "react"
 import { motion } from "framer-motion"
 import { useTypingStore } from "@/store/typing-store"
 import { calculateWPM, calculateAccuracy } from "@/lib/typing-utils"
-import { ArrowLeft, RotateCcw, Volume2, VolumeX } from "lucide-react"
+import { ArrowLeft, RotateCcw, Volume2, VolumeX, Home } from "lucide-react"
 import EnhancedCaret from "@/components/enhanced-caret"
 
-export default function EnhancedTypingInterface() {
-  const { currentText, time, resetTyping, voiceMode } = useTypingStore()
+export default function EnhancedTypingInterface({ onBackToHome }) {
+  const { currentText, isTyping, time, resetTyping, voiceMode } = useTypingStore()
 
   const [userInput, setUserInput] = useState("")
   const [timeLeft, setTimeLeft] = useState(Number.parseInt(time))
@@ -76,7 +76,15 @@ export default function EnhancedTypingInterface() {
       }
     },
     [currentText, soundEnabled],
+
+    
   )
+
+   useEffect(() => {
+    if (isTyping && userInput === currentText) {
+      setIsFinished(true) // This should stop the timer and show results immediately
+    }
+  }, [userInput, currentText, isTyping])
 
   // Typing sound effects
   const playTypingSound = (isCorrect: boolean) => {
@@ -402,4 +410,13 @@ export default function EnhancedTypingInterface() {
       </motion.div>
     </motion.div>
   )
+}
+
+export interface TypingState {
+  currentText: string
+  isTyping: boolean
+  time: string
+  resetTyping: () => void
+  voiceMode: boolean
+  // ...other properties
 }

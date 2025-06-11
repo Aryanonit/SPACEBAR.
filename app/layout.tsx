@@ -17,7 +17,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "SpaceBar - Modern Typing Practice",
   description: "A beautiful, minimalist typing practice app with voice recognition and advanced features",
-    generator: 'v0.dev'
+    
 }
 
 export default function RootLayout({

@@ -57,8 +57,8 @@ export default function ParticleBackground() {
             color: "#ffffff",
             distance: 120,
             enable: true,
-            opacity: 0.1,
-            width: 0.5,
+            opacity: 0.5,
+            width: 0.7,
           },
           move: {
             direction: "none",
@@ -75,32 +75,32 @@ export default function ParticleBackground() {
               enable: true,
               area: 1200,
             },
-            value: 60,
+            value: 75,
           },
           opacity: {
-            value: { min: 0.1, max: 0.4 },
+            value: { min: 0.9, max: 3 }, // was { min: 0.1, max: 0.4 }
             animation: {
               enable: true,
               speed: 0.5,
-              minimumValue: 0.1,
+              minimumValue: 0.9, // match min to above for consistency
             },
           },
           shape: {
             type: "circle",
           },
           size: {
-            value: { min: 0.5, max: 2 },
+            value: { min: 0.7, max: 2.5 },
             animation: {
               enable: true,
               speed: 1,
-              minimumValue: 0.5,
+              minimumValue: 0.7,
             },
           },
           twinkle: {
             particles: {
               enable: true,
               frequency: 0.02,
-              opacity: 1,
+              opacity: 1.0,
             },
           },
         },
@@ -114,6 +114,7 @@ export default function ParticleBackground() {
           height: "100%",
           zIndex: "-1",
           pointerEvents: "none",
+          opacity: "0.45", // was 0.13, increased by ~23%
         },
       }}
       style={{
@@ -124,6 +125,7 @@ export default function ParticleBackground() {
         height: "100%",
         zIndex: -1,
         pointerEvents: "none",
+       
       }}
     />
   )

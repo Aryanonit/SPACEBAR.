@@ -246,10 +246,11 @@ export default function TypingInterface() {
             type="text"
             value={userInput}
             onChange={(e) => handleInputChange(e.target.value)}
-            className="w-full bg-transparent border-b-2 border-slate-600 focus:border-amber-400 outline-none text-2xl py-4 text-transparent caret-transparent"
-            placeholder=""
-            autoFocus
-            style={{ caretColor: "transparent" }}
+            disabled={isFinished} // Prevent typing after finish
+            className="w-full p-3 rounded bg-slate-900 text-white font-mono text-xl outline-none"
+            autoComplete="off"
+            spellCheck={false}
+            aria-label="Typing input"
           />
         )}
       </motion.div>
