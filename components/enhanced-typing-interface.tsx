@@ -7,7 +7,11 @@ import { calculateWPM, calculateAccuracy } from "@/lib/typing-utils"
 import { ArrowLeft, RotateCcw, Volume2, VolumeX, Home } from "lucide-react"
 import EnhancedCaret from "@/components/enhanced-caret"
 
-export default function EnhancedTypingInterface({ onBackToHome }) {
+interface EnhancedTypingInterfaceProps {
+  onBackToHome: () => void
+}
+
+export default function EnhancedTypingInterface({ onBackToHome }: EnhancedTypingInterfaceProps) {
   const { currentText, isTyping, time, resetTyping, voiceMode } = useTypingStore()
 
   const [userInput, setUserInput] = useState("")
