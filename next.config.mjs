@@ -11,7 +11,6 @@ const nextConfig = {
     ignoreDuringBuilds: false, // Fixed: Enable ESLint during builds
   },
   // Performance optimizations
-  swcMinify: true,
   compress: true,
   poweredByHeader: false,
   // Image optimization

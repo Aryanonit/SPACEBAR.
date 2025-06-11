@@ -221,6 +221,15 @@ export function generateText(
   difficulty: string,
   language: string
 ): string {
-  // Example implementation, replace with your actual logic
-  return `Mode: ${mode}, Difficulty: ${difficulty}, Language: ${language}`;
+  const langData = textDatabase[language];
+  if (!langData) return "No texts available for this language.";
+
+  const modeData = langData[mode as Mode];
+  if (!modeData) return "No texts available for this mode.";
+
+  const texts = modeData[difficulty as Difficulty];
+  if (!texts || texts.length === 0) return "No texts available for this difficulty.";
+
+  // Return a random text from the array
+  return texts[Math.floor(Math.random() * texts.length)];
 }
