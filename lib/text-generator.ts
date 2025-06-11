@@ -1,13 +1,14 @@
-// Define types for the text database
+// Add language support to the text database
 type Difficulty = "easy" | "medium" | "hard" | "expert";
 type Mode = "words" | "code" | "email" | "punctuation" | "numbers";
-type ModeData = { [key in Difficulty]: string[] };
-type LanguageData = Partial<{ [key in Mode]: ModeData }>;
+type TextsByDifficulty = { [key in Difficulty]: string[] };
+type LanguageData = {
+  [key in Mode]?: TextsByDifficulty;
+};
 type TextDatabase = {
   [language: string]: LanguageData;
 };
 
-// Add language support to the text database
 const textDatabase: TextDatabase = {
   // English texts remain the same
   en: {
@@ -211,7 +212,29 @@ const textDatabase: TextDatabase = {
       medium: [],
       hard: [],
       expert: [],
-// Additional German content would be added here
     },
   },
 };
+
+export function generateText(mode: string, difficulty: string, language = "en"): string {
+  // Default to English if the selected language is not available
+  const langData = textDatabase[language] || textDatabase.en;
+
+  const modeKey = mode as Mode;
+  const difficultyKey = difficulty as Difficulty;
+
+  // If the specific mode or difficulty doesn't exist in the selected language, fall back to English
+  if (
+    !langData[modeKey] ||
+    !(langData[modeKey] as TextsByDifficulty)[difficultyKey]
+  ) {
+    const fallbackText = textDatabase.en[modeKey]?.[difficultyKey];
+    if (fallbackText) {
+      return fallbackText[Math.floor(Math.random() * fallbackText.length)];
+    }
+    return "The quick brown fox jumps over the lazy dog.";
+  }
+
+  const texts = (langData[modeKey] as TextsByDifficulty)[difficultyKey];
+  return texts[Math.floor(Math.random() * texts.length)];
+}
