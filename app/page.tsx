@@ -11,7 +11,7 @@ import StatsDashboard from "@/components/stats-dashboard"
 import DailyChallenge from "@/components/daily-challenge"
 //import CustomWordPackBuilder from "@/components/custom-word-pack-builder"
 import ParticleBackground from "@/components/particle-background"
-// import { generateText } from "@/lib/text-generator"
+import { generateText } from "@/lib/text-generator"
 import ThemeToggle from "@/components/theme-toggle"
 import { BarChart3, Package, Settings, Calendar, Plus } from "lucide-react"
 import CustomWordPackBuilder from "@/components/ui/custom-word-pack-builder"
@@ -286,11 +286,3 @@ export default function Home() {
   )
 }
 
-export function generateText(
-  mode: string,
-  difficulty: string,
-  language: string
-): string {
-  // Example implementation, replace with your actual logic
-  return `Mode: ${mode}, Difficulty: ${difficulty}, Language: ${language}`;
-}
