@@ -6,6 +6,7 @@ import { useTypingStore } from "@/store/typing-store"
 import { calculateWPM, calculateAccuracy } from "@/lib/typing-utils"
 import { ArrowLeft, RotateCcw, Volume2, VolumeX, Home } from "lucide-react"
 import EnhancedCaret from "@/components/enhanced-caret"
+import { Analytics } from '@vercel/analytics/react';
 
 interface EnhancedTypingInterfaceProps {
   onBackToHome: () => void
@@ -412,6 +413,7 @@ export default function EnhancedTypingInterface({ onBackToHome }: EnhancedTyping
           </span>
         </div>
       </motion.div>
+      <Analytics />
     </motion.div>
   )
 }
